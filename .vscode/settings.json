@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/3e436e24-bc44-4280-a861-5eb0a94fbf67/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/Antoine256-Project-REST-API",
+    "appService.deploySubpath": "."
+}
