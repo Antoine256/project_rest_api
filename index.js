@@ -10,7 +10,8 @@ const { DOMParser } = require('xmldom');
 app.use(cors())
 app.use(express.json());
 
-const soapUrl = "https://antoine256-project-api.azurewebsites.net/"
+const soapUrl = "https://antoine256-project-api.azurewebsites.net/wsdl"
+const soapUrl2 = "http://localhost:3080/wsdl"
 const PORT = process.env.PORT || 3000;
 
 
@@ -132,6 +133,9 @@ app.post('/road', async function (req, res) {
 
     let time = await requestTime(finalRoad.features[0].properties.summary.duration)
     console.log(time);
+    if (time === null){
+        time = undefined;
+    }
     let resData = {
         road: finalRoad.features[0].geometry.coordinates,
         time: time,
@@ -186,14 +190,19 @@ async function requestTime(time) {
         "</soapenv:Envelope>"
 
     //await axios.post(soapUrl, xml, {
-    let response =  await axios.post("http://localhost:3080/wsdl", xml, {
+    try{
+        let response =  await axios.post(soapUrl1, xml, {
             headers: {
                 'Content-Type': 'text/xml;charset=UTF-8',
                 'SOAPAction': 'urn:example:my-service#MyFunction', // Vérifiez le SOAPAction dans votre WSDL
             },
         });
-    const xmlDoc = new DOMParser().parseFromString(response.data, 'text/xml');
-    return xmlDoc.getElementsByTagName('data')[0].textContent;
+        const xmlDoc = new DOMParser().parseFromString(response.data, 'text/xml');
+        return xmlDoc.getElementsByTagName('data')[0].textContent;
+    }catch (e){
+        console.log(e);
+        return null;
+    }
 }
 
 app.listen(PORT, function () {
