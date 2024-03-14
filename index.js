@@ -191,7 +191,7 @@ async function requestTime(time) {
 
     //await axios.post(soapUrl, xml, {
     try{
-        let response =  await axios.post(soapUrl1, xml, {
+        let response =  await axios.post(soapUrl, xml, {
             headers: {
                 'Content-Type': 'text/xml;charset=UTF-8',
                 'SOAPAction': 'urn:example:my-service#MyFunction', // Vérifiez le SOAPAction dans votre WSDL
