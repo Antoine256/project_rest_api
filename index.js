@@ -131,7 +131,7 @@ app.post('/road', async function (req, res) {
 
     // console.log(finalRoad.features[0].geometry.coordinates.length);
 
-    let time = await requestTime(finalRoad.features[0].properties.summary.duration)
+    let time = await requestTime(finalRoad.features[0].properties.summary.duration, stations.length);
     console.log(time);
     if (time === null){
         time = undefined;
@@ -178,13 +178,14 @@ async function getVehicleDetails(id){
       return res.data;
 }
 
-async function requestTime(time) {
+async function requestTime(time, stations) {
     let xml = "<?xml version='1.0' encoding='utf-8'?>" +
         "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='urn:example:my-service'>" +
         "<soapenv:Header/>" +
         "<soapenv:Body> " +
         "<urn:MyFunctionRequest> " +
         "<urn:time>"+time +"</urn:time> " +
+        "<urn:stations>"+ stations +"</urn:stations>"+
         "</urn:MyFunctionRequest> " +
         "</soapenv:Body> " +
         "</soapenv:Envelope>"
