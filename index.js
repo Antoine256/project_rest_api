@@ -10,8 +10,8 @@ const { DOMParser } = require('xmldom');
 app.use(cors())
 app.use(express.json());
 
-const soapUrl = "https://antoine256-project-soap-api.azurewebsites.net/wsdl"
-//const soapUrl = "http://localhost:3080/wsdl"
+//const soapUrl = "https://antoine256-project-soap-api.azurewebsites.net/wsdl"
+const soapUrl = "http://localhost:3080/wsdl"
 const PORT = process.env.PORT || 3000;
 
 
